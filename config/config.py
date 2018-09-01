@@ -1,19 +1,27 @@
 import os
 import numpy as np
 import sys
+
+sys.path.append('/home/adi/Documents/Fine_grain/dataset/devkit/')
+
 import scipy.io
+import json
+import collections
 from easydict import EasyDict as edict 
+from clean_classes import class_corrected
 
 def model_config():
 	cfg = edict()
 
-	# Classes for classification
-	cfg.class_names = scipy.io.loadmat('/home/adi/Documents/Fine_grain/dataset/devkit/cars_meta.mat')
-	cfg.CLASS_NAMES_COARSE = ()
-	cfg.CLASS_NAMES_FINE = ()
+	# Class mapping from fine to coarse
+	cfg.CLASS_LIST = class_corrected()
+
+	# Class names
+	cfg.CLASS_COARSE = ['Sedan','Hatchback','Convertible','Coupe','Wagon','SUV','Cab','Van','Minivan']
+	cfg.CLASS_FINE = list(zip(*cfg.CLASS_LIST))[0]
 
 	# Number of classes
-	cfg.CLASSES = len(cfg.CLASS_NAMES_COARSE)
+	cfg.CLASSES = len(cfg.CLASS_COARSE)
 
 	# Image dimensions
 	cfg.IMAGE_WIDTH = 640
@@ -35,5 +43,9 @@ def model_config():
 
 	# Mode of network operation - accepts 'train' or 'test'
 	cfg.MODE = 'train'
+
+	# Mode of TFRecord generation
+	cfg.TFR_generate = False
+	cfg.TFR_PATH = cfg.DATA_PATH + cfg.MODE + '.tfrecords' 
 
 	return cfg
