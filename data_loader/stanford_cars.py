@@ -145,12 +145,13 @@ def main():
 		threads = tf.train.start_queue_runners(coord=coord, sess= sess)
 		for batch_index in range(5):
 			img, lbl_f, lbl_c = sess.run([data_loader.images, data_loader.labels_f, data_loader.labels_c])
-			img = img.astype(np.uint8)
-			for j in range(5):
-				plt.subplot(2, 3, j+1)
-				plt.imshow(img[j, ...])
-				plt.title(cfg.CLASS_FINE[lbl_f[j]])
-			plt.show()
+			# img = img.astype(np.uint8)
+			# for j in range(5):
+			# 	plt.subplot(2, 3, j+1)
+			# 	plt.imshow(img[j, ...])
+			# 	plt.title(cfg.CLASS_FINE[lbl_f[j]])
+			# plt.show()
+			print(batch_index)
 		# Stop the threads
 		coord.request_stop()
 		

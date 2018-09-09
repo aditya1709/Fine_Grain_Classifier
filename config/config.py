@@ -48,4 +48,12 @@ def model_config():
 	cfg.TFR_generate = False
 	cfg.TFR_PATH = cfg.DATA_PATH + cfg.MODE + '.tfrecords' 
 
+	#Checkpoint directories
+	cfg.SAVE_CKPT = '/home/adi/Documents/Fine_grain/checkpoints/'
+	cfg.EPOCH_NUM = 5000
+	cfg.LOAD_CKPT = '/home/adi/Documents/Fine_grain/checkpoints/model.ckpt-'+str(cfg.EPOCH_NUM)
+
+	# Summary directory
+	cfg.SUMMARY_DIR = '/home/adi/Documents/Fine_grain/summary/'
+
 	return cfg
